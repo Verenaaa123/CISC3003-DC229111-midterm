@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>DC229111 Li Wu Yue</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/material-design-lite@1.1.3/dist/material.blue_grey-orange.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="https://unpkg.com/material-design-lite@1.1.3/material.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
+</head>
+
+<body>
+
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+    <!-- Header -->
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <h1 class="mdl-layout-title"><span>CRM</span> Admin</h1>
+            <div class="mdl-layout-spacer"></div>
+            <label id="tt2" class="material-icons mdl-badge mdl-badge--overlap" data-badge="5">account_box</label>
+            <label id="tt3" class="material-icons mdl-badge mdl-badge--overlap" data-badge="4">notifications</label>
+        </div>
+    </header>
+
+    <!-- Left Nav -->
+    <div class="mdl-layout__drawer mdl-color--blue-grey-800 mdl-color-text--blue-grey-50">
+        <div class="profile">
+            <img src="images/profile.jpg" class="avatar">
+            <h4>John Locke</h4>
+            <span>johnlocke@example.com</span>
+        </div>
+        <nav class="mdl-navigation mdl-color-text--blue-grey-300">
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">dashboard</i> Dashboard</a>
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">message</i> Messages</a>
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">event</i> Tasks</a>
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">call</i> Orders</a>
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">settings</i> Configure</a>
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">view_list</i> Catalog</a>
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">contacts</i> Customers</a>
+            <a class="mdl-navigation__link mdl-color-text--blue-grey-300" href=""><i class="material-icons" role="presentation">insert_chart</i> Analytics</a>
+        </nav>
+    </div>
+
+    <main class="mdl-layout__content mdl-color--grey-50">
+        <section class="page-content">
+
+            <div class="mdl-grid">
+
+                <!-- Customers Card -->
+                <div class="mdl-cell mdl-cell--7-col card-lesson mdl-card mdl-shadow--2dp">
+                    <div class="mdl-card__title mdl-color--orange">
+                        <h2 class="mdl-card__title-text">Customers</h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <table class="mdl-data-table mdl-shadow--2dp">
+                            <thead>
+                                <tr>
+                                    <th class="mdl-data-table__cell--non-numeric">Name</th>
+                                    <th class="mdl-data-table__cell--non-numeric">University</th>
+                                    <th class="mdl-data-table__cell--non-numeric">City</th>
+                                    <th>Sales</th>
+                                </tr>
+                            </thead>
+                            <tbody id="customer-tbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="mdl-grid mdl-cell--5-col">
+
+                    <!-- Customer Details Card -->
+                    <div class="mdl-cell mdl-cell--12-col card-lesson mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                            <h2 class="mdl-card__title-text">Customer Details</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text" id="customer-details">
+                            <h4>No customer selected</h4>
+                            <p>Click a customer name to view details.</p>
+                        </div>
+                    </div>
+
+                    <!-- Order Details Card -->
+                    <div class="mdl-cell mdl-cell--12-col card-lesson mdl-card mdl-shadow--2dp">
+                        <div class="mdl-card__title mdl-color--deep-purple mdl-color-text--white">
+                            <h2 class="mdl-card__title-text">Order Details</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text" id="order-details">
+                            <table class="mdl-data-table mdl-shadow--2dp">
+                                <thead>
+                                    <tr>
+                                        <th class="mdl-data-table__cell--non-numeric">Cover</th>
+                                        <th class="mdl-data-table__cell--non-numeric">ISBN</th>
+                                        <th class="mdl-data-table__cell--non-numeric">Title</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="order-tbody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div> <!-- / mdl-grid -->
+
+        </section>
+        <footer style="text-align:center; padding: 12px; font-size: 14px; color: #555;">
+            CISC3003 Web Programming: DC229111 Li Wu Yue 2026
+        </footer>
+    </main>
+
+</div> <!-- / mdl-layout -->
+
+<script>
+var customers = [
+    {id:"2",  first:"Leonie",    last:"Kohler",      email:"leonekohler@surfeu.de",        university:"University of Stuttgart", address:"Theodor-Heuss-Strasse 34",               city:"Stuttgart",  country:"Germany",        phone:"+49 0711 2842222",    sales:"1,4,4,7,5,9,10,10,10,12,11,9"},
+    {id:"3",  first:"Bjorn",     last:"Hansen",      email:"bjorn.hansen@yahoo.no",         university:"University of Oslo",      address:"Ullevalsveien 14",                      city:"Oslo",       country:"Norway",          phone:"+47 22 44 22 22",     sales:"6,4,4,7,8,9,10,10,6,6,3,9"},
+    {id:"4",  first:"Francois",  last:"Tremblay",    email:"ftremblay@gmail.com",           university:"McGill University",       address:"1498 rue Belanger",                     city:"Montreal",   country:"Canada",          phone:"+1 (514) 721-4711",   sales:"9,12,14,17,15,12,10,10,10,16,11,9"},
+    {id:"5",  first:"Frantisek", last:"Wichterlova", email:"frantisekw@jetbrains.com",     university:"Charles University",      address:"Klanova 9/506",                         city:"Prague",     country:"Czech Republic",  phone:"+420 2 4172 5555",    sales:"1,2,4,3,5,1,1,1,1,2,1,5"},
+    {id:"6",  first:"Astrid",    last:"Gruber",      email:"astrid.gruber@apple.at",        university:"Vienna University",       address:"Rotenturmstrasse 4",                    city:"Vienna",     country:"Austria",         phone:"+43 01 5134505",      sales:"6,4,8,7,8,9,5,7,6,6,3,9"},
+    {id:"7",  first:"Helena",    last:"Holy",        email:"hholy@gmail.com",               university:"Charles University",      address:"Rilska 3174/6",                         city:"Prague",     country:"Czech Republic",  phone:"+420 2 4177 0449",    sales:"3,3,4,7,2,3,2,10,6,6,3,9"},
+    {id:"16", first:"Aaron",     last:"Mitchell",    email:"aaronmitchell@yahoo.ca",        university:"University of Manitoba",  address:"696 Osborne Street",                    city:"Winnipeg",   country:"Canada",          phone:"+1 (204) 452-6452",   sales:"4,4,7,8,9,4,10,6,6,3,9,11"},
+    {id:"17", first:"Ellie",     last:"Sullivan",    email:"ellie.sullivan@shaw.ca",        university:"Aurora College",          address:"5112 48 Street",                        city:"Yellowknife",country:"Canada",          phone:"+1 (867) 920-2233",   sales:"11,14,8,7,5,9,9,6,10,6,11,9"},
+    {id:"18", first:"Joao",      last:"Fernandes",   email:"jfernandes@yahoo.pt",           university:"University of Lisbon",    address:"Rua da Assuncao 53",                    city:"Lisbon",     country:"Portugal",        phone:"+351 (213) 466-111",  sales:"3,3,4,3,5,1,3,3,1,2,1,5"},
+    {id:"19", first:"Madalena",  last:"Sampaio",     email:"masampaio@sapo.pt",             university:"University of Porto",     address:"4350 Rua dos Campeoes Europeus de Viena",city:"Porto",     country:"Portugal",        phone:"+351 (225) 022-448",  sales:"2,4,3,5,1,4,6,1,1,2,1,5"},
+    {id:"22", first:"Isabelle",  last:"Mercier",     email:"isabelle_mercier@apple.fr",     university:"University of Burgundy", address:"68 Rue Jouvence",                       city:"Dijon",      country:"France",          phone:"+33 03 80 73 66 99",  sales:"1,1,1,3,5,1,3,1,1,2,1,5"},
+    {id:"23", first:"Emma",      last:"Jones",       email:"emma_jones@hotmail.com",        university:"King's College",          address:"202 Hoxton Street",                     city:"London",     country:"United Kingdom",  phone:"+44 020 7707 0707",   sales:"1,2,4,3,5,1,8,8,4,2,1,5"}
+];
+
+var orders = [
+    {order_id:"1",  customer_id:"4",  isbn:"0133360903", title:"Building Java Programs",                                                        category:"Computer Science"},
+    {order_id:"2",  customer_id:"6",  isbn:"0321836995", title:"Mathematics All Around",                                                         category:"Mathematics"},
+    {order_id:"7",  customer_id:"19", isbn:"0133485102", title:"Managing Engineering and Technology",                                            category:"Engineering"},
+    {order_id:"8",  customer_id:"2",  isbn:"0133128911", title:"Basics of Web Design: HTML5 & CSS3",                                             category:"Computer Science"},
+    {order_id:"9",  customer_id:"2",  isbn:"0133068307", title:"Introduction to JavaScript Programming with XML and PHP",                        category:"Computer Science"},
+    {order_id:"10", customer_id:"3",  isbn:"0133251241", title:"Horngren's Financial & Managerial Accounting",                                   category:"Business"},
+    {order_id:"11", customer_id:"18", isbn:"0132948850", title:"Survey of Economics",                                                            category:"Economics"},
+    {order_id:"12", customer_id:"18", isbn:"0132948869", title:"Microeconomics",                                                                 category:"Economics"},
+    {order_id:"13", customer_id:"18", isbn:"0132991330", title:"Macroeconomics",                                                                 category:"Economics"},
+    {order_id:"14", customer_id:"18", isbn:"0132992795", title:"Macroeconomics, 2/e",                                                            category:"Economics"},
+    {order_id:"15", customer_id:"16", isbn:"0132730359", title:"E-Commerce 2013",                                                                category:"Business"},
+    {order_id:"20", customer_id:"5",  isbn:"0133255433", title:"Horngren's Financial & Managerial Accounting, The Managerial Chapters",          category:"Business"},
+    {order_id:"21", customer_id:"5",  isbn:"0133255573", title:"Horngren's Financial & Managerial Accounting. The Financial Chapters",           category:"Business"},
+    {order_id:"24", customer_id:"23", isbn:"0136015727", title:"Reliability Engineering",                                                        category:"Engineering"},
+    {order_id:"25", customer_id:"23", isbn:"0132832887", title:"Aerodynamics for Engineers",                                                     category:"Engineering"},
+    {order_id:"26", customer_id:"23", isbn:"0321899970", title:"Technical Communication",                                                        category:"English"}
+];
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+// Render customer table rows
+var tbody = document.getElementById('customer-tbody');
+customers.forEach(function(c) {
+    var tr = document.createElement('tr');
+    tr.innerHTML =
+        '<td class="mdl-data-table__cell--non-numeric">' +
+            '<a href="#" class="customer-link" data-id="' + escapeHtml(c.id) + '">' +
+                escapeHtml(c.first + ' ' + c.last) +
+            '</a>' +
+        '</td>' +
+        '<td class="mdl-data-table__cell--non-numeric">' + escapeHtml(c.university) + '</td>' +
+        '<td class="mdl-data-table__cell--non-numeric">' + escapeHtml(c.city) + '</td>' +
+        '<td><span class="sparkline">' + escapeHtml(c.sales) + '</span></td>';
+    tbody.appendChild(tr);
+});
+
+// Handle customer link click
+$(document).on('click', '.customer-link', function(e) {
+    e.preventDefault();
+    var id = $(this).data('id');
+
+    // Find customer
+    var customer = null;
+    for (var i = 0; i < customers.length; i++) {
+        if (customers[i].id === String(id)) { customer = customers[i]; break; }
+    }
+    if (!customer) return;
+
+    // Update Customer Details card
+    var detailsHtml =
+        '<h4>' + escapeHtml(customer.first + ' ' + customer.last) + '</h4>' +
+        '<p><strong>Email:</strong> ' + escapeHtml(customer.email) + '</p>' +
+        '<p><strong>University:</strong> ' + escapeHtml(customer.university) + '</p>' +
+        '<p><strong>Address:</strong> ' + escapeHtml(customer.address) + '</p>' +
+        '<p><strong>City:</strong> ' + escapeHtml(customer.city) + '</p>' +
+        '<p><strong>Country:</strong> ' + escapeHtml(customer.country) + '</p>' +
+        '<p><strong>Phone:</strong> ' + escapeHtml(customer.phone) + '</p>';
+    document.getElementById('customer-details').innerHTML = detailsHtml;
+
+    // Find matching orders
+    var customerOrders = orders.filter(function(o) {
+        return String(o.customer_id) === String(id);
+    });
+
+    // Update Order Details card
+    var orderTbody = document.getElementById('order-tbody');
+    orderTbody.innerHTML = '';
+
+    if (customerOrders.length === 0) {
+        document.getElementById('order-details').innerHTML =
+            '<p>No orders found for this customer.</p>' +
+            '<table class="mdl-data-table mdl-shadow--2dp">' +
+            '<thead><tr>' +
+            '<th class="mdl-data-table__cell--non-numeric">Cover</th>' +
+            '<th class="mdl-data-table__cell--non-numeric">ISBN</th>' +
+            '<th class="mdl-data-table__cell--non-numeric">Title</th>' +
+            '</tr></thead><tbody></tbody></table>';
+    } else {
+        document.getElementById('order-details').innerHTML =
+            '<table class="mdl-data-table mdl-shadow--2dp">' +
+            '<thead><tr>' +
+            '<th class="mdl-data-table__cell--non-numeric">Cover</th>' +
+            '<th class="mdl-data-table__cell--non-numeric">ISBN</th>' +
+            '<th class="mdl-data-table__cell--non-numeric">Title</th>' +
+            '</tr></thead>' +
+            '<tbody id="order-tbody"></tbody></table>';
+
+        var newTbody = document.getElementById('order-tbody');
+        customerOrders.forEach(function(o) {
+            var tr = document.createElement('tr');
+            tr.innerHTML =
+                '<td class="mdl-data-table__cell--non-numeric">' +
+                    '<img src="images/tinysquare/' + escapeHtml(o.isbn) + '.jpg" alt="' + escapeHtml(o.title) + '" width="40">' +
+                '</td>' +
+                '<td class="mdl-data-table__cell--non-numeric">' + escapeHtml(o.isbn) + '</td>' +
+                '<td class="mdl-data-table__cell--non-numeric">' + escapeHtml(o.title) + '</td>';
+            newTbody.appendChild(tr);
+        });
+    }
+});
+
+// Init sparklines
+$(function() {
+    $('.sparkline').sparkline('html', {type: 'bar', barColor: '#ff6d00', height: '30px'});
+});
+</script>
+
+</body>
+</html>
